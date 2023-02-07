@@ -151,6 +151,11 @@ namespace SampleConsole
         
         public AsyncTest()
         {
+            Task<string> task = GetUrlContentLengthAsync();
+            Console.WriteLine("dfdsf");
+            task.Wait();
+            string res = task.Result;
+            
             Action<object> action = (object obj) =>
             {
                 Console.WriteLine("Task={0}, obj={1}, Thread={2}",
@@ -200,6 +205,30 @@ namespace SampleConsole
         {
             Console.WriteLine("func2");
             return null;
+        }
+
+        public async Task GetUrlContentLengthAsync()
+        {
+            var client = new HttpClient();
+
+            Task<string> getStringTask =
+                client.GetStringAsync("https://docs.microsoft.com/dotnet");
+
+            //Task.Run(() => { DoIndependentWork(); });
+
+            DoIndependentWork();
+
+            string contents = await getStringTask;
+
+
+            await Task.Run(() => Thread.Sleep(10000));
+
+            //return contents;
+        }
+
+        void DoIndependentWork()
+        {
+            Console.WriteLine("Working...");
         }
     }
 }

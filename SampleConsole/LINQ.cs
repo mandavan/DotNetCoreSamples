@@ -8,20 +8,30 @@ namespace SampleConsole
 {
     internal class LINQ
     {
+        public void QuerySyntax()
+        {
+            string[] groupingQuery = { "carrots", "cabbage", "broccoli", "beans", "barley" };
+            IEnumerable<IGrouping<char, string>> queryFoodGroups =
+                from item in groupingQuery
+                group item by item[0];
+        }
+
         public void MethodSyntax()
         {
+
             List<string> fruits =
     new List<string> { "apple", "passionfruit", "banana", "mango",
                     "orange", "blueberry", "grape", "strawberry" };
 
-            IEnumerable<string> query = fruits.Where(fruit => fruit.Length < 6);
-
+            IEnumerable<string> query = fruits.Where(fruit => fruit.Length < 6).Select(f => f);
+            fruits.First(f => f.Length > 6);
+            fruits.Sort();
             foreach (string fruit in query)
             {
                 Console.WriteLine(fruit);
             }
 
-            foreach(var fruit in fruits.Where(f => f.Length > 6).Select(f => new { Length = f.Length, Xyz = 'A' }).ToList())
+            foreach(var fruit in fruits.Where(f => f.Length > 6).Select(f => new { Length = f.Length, Xyz = 'A' }))
             {
                 Console.WriteLine(fruit);
             }

@@ -10,7 +10,8 @@ using SampleConsole;
 //ani.Walk();
 //await AsyncSample.BakeBFAsync();
 new LINQ().MethodSyntax();
-new CovarianceAndContra();
-//new AsyncTest();
+new LINQ().QuerySyntax();
+//new CovarianceAndContra();
+new AsyncTest();
 Console.ReadKey();
 
